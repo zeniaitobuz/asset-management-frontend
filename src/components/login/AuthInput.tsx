@@ -25,10 +25,25 @@ export default function AuthInput({
   return (
     <div>
       <div className="flex flex-col gap-3">
-        <div className="flex justify-between">
-          <label className="bg-[#ffffff] text-black" htmlFor={id}>
-            {label}
-          </label>
+        <label className="poppins-light text-white" htmlFor={id}>
+          {label}
+        </label>
+
+        <div className="flex justify-between p-4 w-[15rem] lg:w-[20rem] poppins-regular  rounded-3xl bg-black">
+          <input
+            {...inputProps}
+            className={inputProps.className}
+            {...register(inputProps.name ?? "")}
+            name={inputProps.name}
+            type={
+              (showPasswordIcon && showPassword
+                ? "text"
+                : !inputProps.type && "password") || inputProps.type
+            }
+            placeholder={inputProps.placeholder}
+            autoComplete="on"
+            id={id}
+          />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
@@ -36,7 +51,7 @@ export default function AuthInput({
               showPasswordIcon ? (showPassword ? "hidden" : "block") : "hidden"
             }`}
           >
-            <FaEye className="" />
+            <FaEye className="text-white" />
           </button>
           <button
             type="button"
@@ -45,23 +60,9 @@ export default function AuthInput({
               showPasswordIcon ? (showPassword ? "block" : "hidden") : "hidden"
             }`}
           >
-            <FaEyeSlash />
+            <FaEyeSlash className="text-white" />
           </button>
         </div>
-        <input
-          {...inputProps}
-          className={inputProps.className}
-          {...register(inputProps.name ?? "")}
-          name={inputProps.name}
-          type={
-            (showPasswordIcon && showPassword
-              ? "text"
-              : !inputProps.type && "password") || inputProps.type
-          }
-          placeholder={inputProps.placeholder}
-          autoComplete="on"
-          id={id}
-        />
       </div>
       {fieldState.error?.message && (
         <p className="absolute text-red-500">{fieldState.error?.message}</p>
